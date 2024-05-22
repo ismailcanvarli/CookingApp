@@ -2,6 +2,7 @@ package com.erenalparslan.cookingapp.presentation.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -25,23 +26,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
 import com.erenalparslan.cookingapp.R
 import com.erenalparslan.cookingapp.util.Screen
 
 @Composable
-fun HomeScreen(navController: NavController) {
-    HomeScreenContent { index ->
-        when (index) {
-            0 -> navController.navigate(Screen.Soup.route)
-            1 -> navController.navigate(Screen.MainCourse.route)
-            2 -> navController.navigate(Screen.Dessert.route)
-            3 -> navController.navigate(Screen.Drink.route)
-        }
-    }
-}
-
-@Composable
-fun HomeScreenContent(onCardClick: (Int) -> Unit = {}) {
+fun HomeScreen() {
     val menuItems = listOf(
         Pair(R.drawable.ic_launcher_background, stringResource(R.string.soup)),
         Pair(R.drawable.ic_launcher_background, stringResource(R.string.main_course)),
@@ -66,7 +57,8 @@ fun HomeScreenContent(onCardClick: (Int) -> Unit = {}) {
                 columns = GridCells.Fixed(2),
                 modifier = Modifier
                     .fillMaxHeight()
-                    .padding(horizontal = 8.dp, vertical = 16.dp)
+                    .padding(horizontal = 8.dp, vertical = 16.dp),
+                verticalArrangement = Arrangement.SpaceAround
             ) {
                 items(menuItems.size) { index ->
                     val menuItem = menuItems[index]
@@ -75,10 +67,7 @@ fun HomeScreenContent(onCardClick: (Int) -> Unit = {}) {
                         modifier = Modifier
                             .padding(8.dp)
                             .fillMaxWidth()
-                            .height(280.dp)
-                            .clickable {
-                                onCardClick(index)
-                            },
+                            .height(280.dp),
                     ) {
                         Box(contentAlignment = Alignment.Center) {
                             Image(
@@ -103,5 +92,5 @@ fun HomeScreenContent(onCardClick: (Int) -> Unit = {}) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
-    HomeScreenContent()
+    HomeScreen()
 }

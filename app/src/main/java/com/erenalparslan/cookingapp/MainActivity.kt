@@ -22,17 +22,13 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -58,22 +54,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    Scaffold(bottomBar = { BottomNavigationBar(bottomNavController = navController) },
-                        topBar = {
-                            // Add the top navigation bar.
-                            TopAppBar(
-                                title = {
-                                    // The title of the top bar changes based on the current screen.
-                                    Text(
-                                        text = "CookingApp"
-                                    )
-                                },
-                                modifier = Modifier.shadow(2.dp),
-                                colors = TopAppBarDefaults.smallTopAppBarColors(
-                                    MaterialTheme.colorScheme.inverseOnSurface
-                                )
-                            )
-                        }) {
+                    Scaffold(bottomBar = { BottomNavigationBar(bottomNavController = navController) }) {
 
                         // Scaffold content
                         Box(
