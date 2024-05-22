@@ -68,7 +68,7 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 // Home screen
                                 composable(Screen.Home.route) {
-                                    HomeScreen(navController)
+                                    HomeScreen()
                                 }
                                 // Search screen
                                 composable(Screen.Search.route) {
