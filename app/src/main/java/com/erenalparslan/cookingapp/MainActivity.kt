@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Search
@@ -41,7 +40,7 @@ import androidx.navigation.compose.rememberNavController
 import com.erenalparslan.cookingapp.presentation.addRecipe.AddRecipeScreen
 import com.erenalparslan.cookingapp.presentation.favorites.FavoritesScreen
 import com.erenalparslan.cookingapp.presentation.home.HomeScreen
-import com.erenalparslan.cookingapp.presentation.login.LoginScreen
+import com.erenalparslan.cookingapp.presentation.profile.ProfileScreen
 import com.erenalparslan.cookingapp.presentation.search.SearchScreen
 import com.erenalparslan.cookingapp.ui.theme.CookingAppTheme
 import com.erenalparslan.cookingapp.util.Screen
@@ -103,8 +102,8 @@ class MainActivity : ComponentActivity() {
                                     FavoritesScreen()
                                 }
                                 // Login screen
-                                composable(Screen.Login.route) {
-                                    LoginScreen()
+                                composable(Screen.Profile.route) {
+                                    ProfileScreen()
                                 }
                             }
                         }
@@ -135,7 +134,7 @@ class MainActivity : ComponentActivity() {
                 title = stringResource(R.string.favorite), icon = Icons.Rounded.Star
             ),
             BottomItem(
-                title = stringResource(R.string.login), icon = Icons.Rounded.Person
+                title = stringResource(R.string.profile), icon = Icons.Rounded.Person
             ),
         )
 
@@ -178,7 +177,7 @@ class MainActivity : ComponentActivity() {
 
                             4 -> {
                                 bottomNavController.popBackStack()
-                                bottomNavController.navigate(Screen.Login.route)
+                                bottomNavController.navigate(Screen.Profile.route)
                             }
 
                         }
@@ -223,7 +222,7 @@ fun PreviewBottomNavigationBar() {
             title = "Favorites", icon = Icons.Rounded.Star
         ),
         MainActivity.BottomItem(
-            title = "Login", icon = Icons.Rounded.Person
+            title = "Profile", icon = Icons.Rounded.Person
         ),
     )
 

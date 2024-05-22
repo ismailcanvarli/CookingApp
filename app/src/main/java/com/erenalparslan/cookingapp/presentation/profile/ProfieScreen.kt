@@ -1,4 +1,4 @@
-package com.erenalparslan.cookingapp.presentation.login
+package com.erenalparslan.cookingapp.presentation.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen() {
+fun ProfileScreen() {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
