@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">CookingApp</string>
-    <string name="home">Home</string>
-    <string name="search">Search</string>
-    <string name="profile">Profile</string>
-    <string name="addRecipe">Add Recipe</string>
-    <string name="favorite">Favorites</string>
+    <string name="home">Ana Sayfa</string>
+    <string name="search">Ara</string>
+    <string name="profile">Profil</string>
+    <string name="addRecipe">Tarif Ekle</string>
+    <string name="favorite">Favoriler</string>
+    <string name="soup">Çorbalar</string>
+    <string name="main_course">Ana Yemekler</string>
+    <string name="dessert">Tatlılar</string>
+    <string name="drink">İçecekler</string>
+    <string name="home_page">Ana Sayfa</string>
 </resources>
