@@ -9,11 +9,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Movie
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -37,6 +38,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.erenalparslan.cookingapp.presentation.addRecipe.AddRecipeScreen
 import com.erenalparslan.cookingapp.presentation.favorites.FavoritesScreen
 import com.erenalparslan.cookingapp.presentation.home.HomeScreen
 import com.erenalparslan.cookingapp.presentation.login.LoginScreen
@@ -44,7 +46,6 @@ import com.erenalparslan.cookingapp.presentation.search.SearchScreen
 import com.erenalparslan.cookingapp.ui.theme.CookingAppTheme
 import com.erenalparslan.cookingapp.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -55,12 +56,10 @@ class MainActivity : ComponentActivity() {
             CookingAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    Scaffold(
-                        bottomBar = { BottomNavigationBar(bottomNavController = navController) },
+                    Scaffold(bottomBar = { BottomNavigationBar(bottomNavController = navController) },
                         topBar = {
                             // Add the top navigation bar.
                             TopAppBar(
@@ -85,27 +84,30 @@ class MainActivity : ComponentActivity() {
                         ) {
                             // NavHost provides in-app navigation.
                             NavHost(
-                                navController = navController,
-                                startDestination = Screen.Home.route
+                                navController = navController, startDestination = Screen.Home.route
                             ) {
-                                // Popular movies screen
+                                // Home screen
                                 composable(Screen.Home.route) {
                                     HomeScreen()
                                 }
-                                // Upcoming movies screen
+                                // Search screen
                                 composable(Screen.Search.route) {
                                     SearchScreen()
                                 }
+                                // Recipe screen
+                                composable(Screen.AddRecipe.route) {
+                                    AddRecipeScreen()
+                                }
+                                // Favorites screen
                                 composable(Screen.Favorites.route) {
                                     FavoritesScreen()
                                 }
-                                // Upcoming movies screen
+                                // Login screen
                                 composable(Screen.Login.route) {
                                     LoginScreen()
                                 }
                             }
                         }
-
                     }
 
                 }
@@ -121,21 +123,20 @@ class MainActivity : ComponentActivity() {
         // Navigation bar items
         val items = listOf(
             BottomItem(
-                title = stringResource(R.string.home),
-                icon = Icons.Rounded.Home
+                title = stringResource(R.string.home), icon = Icons.Rounded.Home
             ),
             BottomItem(
-                title = stringResource(R.string.search),
-                icon = Icons.Rounded.Search
+                title = stringResource(R.string.search), icon = Icons.Rounded.Search
             ),
             BottomItem(
-                title = stringResource(R.string.home),
-                icon = Icons.Rounded.Favorite
+                title = stringResource(R.string.addRecipe), icon = Icons.Rounded.Add
             ),
             BottomItem(
-                title = stringResource(R.string.login),
-                icon = Icons.Rounded.Person
-            )
+                title = stringResource(R.string.favorite), icon = Icons.Rounded.Star
+            ),
+            BottomItem(
+                title = stringResource(R.string.login), icon = Icons.Rounded.Person
+            ),
         )
 
         // Create a state to remember which item is selected.
@@ -151,48 +152,49 @@ class MainActivity : ComponentActivity() {
             ) {
                 items.forEachIndexed { index, bottomItem ->
                     // Each navigation bar item
-                    NavigationBarItem(
-                        selected = selected.intValue == index,
-                        onClick = {
-                            // Actions to take when an item is clicked
-                            selected.intValue = index
-                            when (selected.intValue) {
-                                0 -> {
-                                    bottomNavController.popBackStack()
-                                    bottomNavController.navigate(Screen.Home.route)
-                                }
-
-                                1 -> {
-                                    bottomNavController.popBackStack()
-                                    bottomNavController.navigate(Screen.Search.route)
-                                }
-                                2 -> {
-                                    bottomNavController.popBackStack()
-                                    bottomNavController.navigate(Screen.Favorites.route)
-                                }
-
-                                3 -> {
-                                    bottomNavController.popBackStack()
-                                    bottomNavController.navigate(Screen.Login.route)
-                                }
+                    NavigationBarItem(selected = selected.intValue == index, onClick = {
+                        // Actions to take when an item is clicked
+                        selected.intValue = index
+                        when (selected.intValue) {
+                            0 -> {
+                                bottomNavController.popBackStack()
+                                bottomNavController.navigate(Screen.Home.route)
                             }
-                        },
-                        icon = {
-                            // Icon for the item
-                            Icon(
-                                imageVector = bottomItem.icon,
-                                contentDescription = bottomItem.title,
-                                tint = MaterialTheme.colorScheme.onBackground
-                            )
-                        },
-                        label = {
-                            // Label for the item
-                            Text(
-                                text = bottomItem.title,
-                                color = MaterialTheme.colorScheme.onBackground
-                            )
+
+                            1 -> {
+                                bottomNavController.popBackStack()
+                                bottomNavController.navigate(Screen.Search.route)
+                            }
+
+                            2 -> {
+                                bottomNavController.popBackStack()
+                                bottomNavController.navigate(Screen.AddRecipe.route)
+                            }
+
+                            3 -> {
+                                bottomNavController.popBackStack()
+                                bottomNavController.navigate(Screen.Favorites.route)
+                            }
+
+                            4 -> {
+                                bottomNavController.popBackStack()
+                                bottomNavController.navigate(Screen.Login.route)
+                            }
+
                         }
-                    )
+                    }, icon = {
+                        // Icon for the item
+                        Icon(
+                            imageVector = bottomItem.icon,
+                            contentDescription = bottomItem.title,
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
+                    }, label = {
+                        // Label for the item
+                        Text(
+                            text = bottomItem.title, color = MaterialTheme.colorScheme.onBackground
+                        )
+                    })
                 }
             }
         }
@@ -201,4 +203,29 @@ class MainActivity : ComponentActivity() {
     data class BottomItem(
         val title: String, val icon: ImageVector
     )
+}
+
+// Preview the bottom navigation bar
+@Preview(showBackground = true)
+@Composable
+fun PreviewBottomNavigationBar() {
+    val items = listOf(
+        MainActivity.BottomItem(
+            title = "Home", icon = Icons.Rounded.Home
+        ),
+        MainActivity.BottomItem(
+            title = "Search", icon = Icons.Rounded.Search
+        ),
+        MainActivity.BottomItem(
+            title = "Add Recipe", icon = Icons.Rounded.Add
+        ),
+        MainActivity.BottomItem(
+            title = "Favorites", icon = Icons.Rounded.Star
+        ),
+        MainActivity.BottomItem(
+            title = "Login", icon = Icons.Rounded.Person
+        ),
+    )
+
+    MainActivity().BottomNavigationBar(rememberNavController())
 }
