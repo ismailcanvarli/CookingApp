@@ -34,6 +34,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.erenalparslan.cookingapp.presentation.addRecipe.AddRecipeScreen
+import com.erenalparslan.cookingapp.presentation.cook.CookScreen
 import com.erenalparslan.cookingapp.presentation.favorites.FavoritesScreen
 import com.erenalparslan.cookingapp.presentation.home.HomeScreen
 import com.erenalparslan.cookingapp.presentation.profile.ProfileScreen
@@ -68,7 +69,7 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 // Home screen
                                 composable(Screen.Home.route) {
-                                    HomeScreen()
+                                    HomeScreen { navController.navigate(Screen.Cook.route) }
                                 }
                                 // Search screen
                                 composable(Screen.Search.route) {
@@ -85,6 +86,9 @@ class MainActivity : ComponentActivity() {
                                 // Login screen
                                 composable(Screen.Profile.route) {
                                     ProfileScreen()
+                                }
+                                composable(Screen.Cook.route) {
+                                    CookScreen()
                                 }
                             }
                         }

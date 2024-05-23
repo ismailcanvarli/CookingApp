@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,8 +32,9 @@ import androidx.navigation.NavHostController
 import com.erenalparslan.cookingapp.R
 import com.erenalparslan.cookingapp.util.Screen
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navigate: ()->Unit) {
     val menuItems = listOf(
         Pair(R.drawable.ic_launcher_background, stringResource(R.string.soup)),
         Pair(R.drawable.ic_launcher_background, stringResource(R.string.main_course)),
@@ -68,6 +70,7 @@ fun HomeScreen() {
                             .padding(8.dp)
                             .fillMaxWidth()
                             .height(280.dp),
+                        onClick = navigate
                     ) {
                         Box(contentAlignment = Alignment.Center) {
                             Image(
@@ -92,5 +95,5 @@ fun HomeScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
-    HomeScreen()
+    HomeScreen({})
 }
