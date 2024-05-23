@@ -30,9 +30,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.erenalparslan.cookingapp.presentation.addRecipe.AddRecipeScreen
 import com.erenalparslan.cookingapp.presentation.cook.CookScreen
 import com.erenalparslan.cookingapp.presentation.favorites.FavoritesScreen
@@ -68,8 +70,8 @@ class MainActivity : ComponentActivity() {
                                 navController = navController, startDestination = Screen.Home.route
                             ) {
                                 // Home screen
-                                composable(Screen.Home.route) {
-                                    HomeScreen { navController.navigate(Screen.Cook.route) }
+                                composable(Screen.Home.route)  {
+                                    HomeScreen(navController)
                                 }
                                 // Search screen
                                 composable(Screen.Search.route) {
@@ -87,7 +89,10 @@ class MainActivity : ComponentActivity() {
                                 composable(Screen.Profile.route) {
                                     ProfileScreen()
                                 }
-                                composable(Screen.Cook.route) {
+                                composable(Screen.Cook.route+ "/{cookName}",
+                                    arguments = listOf(
+                                        navArgument("cookName") { type = NavType.StringType }
+                                    )) {
                                     CookScreen()
                                 }
                             }

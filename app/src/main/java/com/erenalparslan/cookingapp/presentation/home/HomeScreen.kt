@@ -1,7 +1,6 @@
 package com.erenalparslan.cookingapp.presentation.home
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,15 +25,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import com.erenalparslan.cookingapp.R
 import com.erenalparslan.cookingapp.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navigate: ()->Unit) {
+fun HomeScreen(navController: NavHostController? = null) {
     val menuItems = listOf(
         Pair(R.drawable.ic_launcher_background, stringResource(R.string.soup)),
         Pair(R.drawable.ic_launcher_background, stringResource(R.string.main_course)),
@@ -70,7 +67,7 @@ fun HomeScreen(navigate: ()->Unit) {
                             .padding(8.dp)
                             .fillMaxWidth()
                             .height(280.dp),
-                        onClick = navigate
+                        onClick = { navController?.navigate(Screen.Cook.route + "/${menuItem.second}") }
                     ) {
                         Box(contentAlignment = Alignment.Center) {
                             Image(
@@ -95,5 +92,5 @@ fun HomeScreen(navigate: ()->Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
-    HomeScreen({})
+    HomeScreen()
 }
