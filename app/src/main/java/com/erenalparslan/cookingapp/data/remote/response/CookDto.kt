@@ -1,3 +1,7 @@
 package com.erenalparslan.cookingapp.data.remote.response
 
-data class CookDto(val name: String? = null)
+
+import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.Expose
+
+class CookDto : ArrayList<CookDtoItem>()
