@@ -40,7 +40,7 @@ fun HomeScreen(navController: NavHostController? = null) {
     val menuItems = listOf(
         Pair(R.drawable.soup, stringResource(R.string.soup)),
         Pair(R.drawable.main_food, stringResource(R.string.main_course)),
-        Pair(R.drawable.sweet, stringResource(R.string.dessert)),
+        Pair(R.drawable.dessert, stringResource(R.string.dessert)),
         Pair(R.drawable.drink, stringResource(R.string.drink))
     )
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
@@ -48,7 +48,7 @@ fun HomeScreen(navController: NavHostController? = null) {
     Surface(
         modifier = Modifier.fillMaxHeight(),
 
-    ) {
+        ) {
         Column(
             modifier = Modifier.fillMaxHeight()
         ) {
@@ -63,19 +63,18 @@ fun HomeScreen(navController: NavHostController? = null) {
                 columns = GridCells.Fixed(2),
                 modifier = Modifier
                     .fillMaxHeight()
-                    .padding(horizontal = 8.dp, vertical = 16.dp),
-                verticalArrangement = Arrangement.SpaceAround
+                    .padding(horizontal = 8.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(menuItems.size) { index ->
                     val menuItem = menuItems[index]
                     //TODO buradaki height ve diğer şeyler tekrar ayarlanacak.
-                    Card(
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .fillMaxWidth()
-                            .height(itemHeight),
-                        onClick = { navController?.navigate(Screen.Cook.route + "/${menuItem.second}") }
-                    ) {
+                    Card(modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth()
+                        .height(itemHeight),
+                        onClick = { navController?.navigate(Screen.Cook.route + "/${menuItem.second}") }) {
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth() // Fill the width of the parent
@@ -87,7 +86,7 @@ fun HomeScreen(navController: NavHostController? = null) {
                             Image(
                                 modifier = Modifier
                                     .fillMaxSize() // Fill the entire Box
-                                    .clip(RoundedCornerShape(22.dp)),
+                                    .clip(RoundedCornerShape(16.dp)),
                                 painter = painterResource(id = menuItem.first),
                                 contentDescription = menuItem.second,
                                 contentScale = ContentScale.Crop,
