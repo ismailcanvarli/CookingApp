@@ -33,7 +33,7 @@ class RecipesRepositoryImpl @Inject constructor(private val cookApi: CookApi) : 
                 return@flow
             }
 
-            emit(Resource.Success(recipesListFromApi.recipesList))
+            emit(Resource.Success(recipesListFromApi))
         }
 
     }

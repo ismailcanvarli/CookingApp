@@ -52,6 +52,7 @@ class CookViewModel @Inject constructor(
                     is Resource.Success -> _cookState.update {
                         it.copy(
                             isLoading = false,
+                            isError = false,
                             cookList = result.data!!
                         )
                     }

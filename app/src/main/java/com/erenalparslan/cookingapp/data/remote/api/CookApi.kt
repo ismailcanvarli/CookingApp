@@ -44,6 +44,6 @@ interface CookApi {
 
     companion object {
 
-        const val BASE_URL = "https://identifier-inner-preparation-rug.trycloudflare.com/"
+        const val BASE_URL = "https://thousands-appliances-creations-pop.trycloudflare.com/"
     }
 }

@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
                                     arguments = listOf(
                                         navArgument("cookName") { type = NavType.StringType }
                                     )) {
-                                    CookScreen()
+                                    CookScreen(navController)
                                 }
                             }
                         }
