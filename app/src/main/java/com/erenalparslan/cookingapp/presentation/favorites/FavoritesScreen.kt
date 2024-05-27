@@ -82,7 +82,7 @@ fun FavoritesScreen() {
                                 ) {
                                     Text(
                                         "Yiyecek Adı",
-                                        fontSize = 20.sp,
+                                        fontSize = 16.sp,
                                         modifier = Modifier.padding(vertical = 8.dp)
                                     )
                                 }
@@ -92,7 +92,7 @@ fun FavoritesScreen() {
                                         Icon(
                                             Icons.Default.Star, contentDescription = null
                                         ) // Beğenilme sayısı ikonu
-                                        Text("10") // Beğenilme sayıs��nı kullanın
+                                        Text("10", fontSize = 12.sp) // Beğenilme sayıs��nı kullanın
                                     }
 
                                     Spacer(Modifier.width(6.dp))
@@ -101,7 +101,7 @@ fun FavoritesScreen() {
                                         Icon(
                                             Icons.Default.Timer, contentDescription = null
                                         ) // Hazırlanma süresi ikonu
-                                        Text("30 dk") // Hazırlanma süresini kullanın
+                                        Text("30 dk", fontSize = 12.sp) // Hazırlanma süresini kullanın
                                     }
 
                                     Spacer(Modifier.width(6.dp))
@@ -110,7 +110,7 @@ fun FavoritesScreen() {
                                         Icon(
                                             Icons.Default.Book, contentDescription = null
                                         ) // Zorluk seviyesi ikonu
-                                        Text("Kolay") // Zorluk seviyesini kullanın
+                                        Text("Kolay", fontSize = 12.sp) // Zorluk seviyesini kullanın
                                     }
                                 }
                             }
