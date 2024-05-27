@@ -1,7 +1,6 @@
 package com.erenalparslan.cookingapp.presentation.home
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -54,10 +54,11 @@ fun HomeScreen(navController: NavHostController? = null) {
         ) {
             Text(
                 text = stringResource(R.string.home_page),
-                fontSize = 32.sp,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .padding(16.dp)
+                    .padding(8.dp)
             )
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
@@ -96,11 +97,12 @@ fun HomeScreen(navController: NavHostController? = null) {
                             Text(
                                 text = menuItem.second,
                                 color = Color.Black,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier
-                                    .padding(16.dp) // Padding around the text
-                                    .background(Color.White) // Background color behind the text
-                                    .align(Alignment.BottomCenter) // Align text to the bottom center
+                                    .padding(12.dp) // Padding around the text
+                                    .align(Alignment.Center) // Align text to the bottom center
                                     .fillMaxWidth(), // Fill the width of the parent
                             )
                         }
