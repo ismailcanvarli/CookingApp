@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -26,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.erenalparslan.cookingapp.R
 
 @Composable
@@ -95,6 +98,11 @@ fun ButtonCard(text: String, iconRes: Int, onClick: () -> Unit) {
 
 @Composable
 fun UserProfileScreen() {
+
+    // TODO: Gerçek tarif görsellerini buraya koyun
+    // Örnek bir tarif listesi oluşturun
+    val recipes = List(10) { "https://example.com/image_$it.jpg" }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -110,8 +118,8 @@ fun UserProfileScreen() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(text = "Kullanıcı Adı", fontSize = 28.sp)
-            Button(onClick = { /*TODO: Ayarlar ekranına yönlendirme*/ }) {
-                Text(text = "Ayarlar")
+            Button(onClick = { /*TODO: Hesaptan çıkma butonu*/ }) {
+                Text(text = "Çıkış Yap")
             }
         }
 
@@ -181,6 +189,28 @@ fun UserProfileScreen() {
                     .padding(start = 8.dp) // Bu satırı ekledik
             ) {
                 Text(text = "Profil Paylaş")
+            }
+        }
+
+        // Tariflerin görüntülendiği bölüm
+        LazyColumn(
+            modifier = Modifier.padding(top = 8.dp),
+        ) { // Dıştaki LazyColumn
+            items(recipes.chunked(3)) { rowRecipes -> // 'recipes' listesini 3'lü gruplara böl
+                Row(horizontalArrangement = Arrangement.SpaceEvenly) { // İçteki Row
+                    rowRecipes.forEachIndexed { index, recipe -> // Her bir tarif için
+                        Card(
+                            modifier = Modifier.size(120.dp)
+                        ) {
+                            // Tarif görseli
+                            Image(
+                                painter = rememberAsyncImagePainter(model = recipe), // 'recipe' gerçek tarif görseli olmalı
+                                contentDescription = "Tarif Görseli $index", // Uygun bir içerik açıklaması ekleyin
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+                    }
+                }
             }
         }
     }
