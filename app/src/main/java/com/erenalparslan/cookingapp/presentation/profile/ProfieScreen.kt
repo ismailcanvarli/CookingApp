@@ -295,7 +295,7 @@ fun LoginScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = { /*TODO: Handle login*/ }, modifier = Modifier.fillMaxWidth()) {
-            Text("Login")
+            Text("Giriş Yap")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -305,6 +305,86 @@ fun LoginScreen() {
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text("Hesap Oluştur")
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RegisterScreen() {
+    var firstName by remember { mutableStateOf("") }
+    var lastName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var showPassword by remember { mutableStateOf(false) } // Şifreyi gösterme durumunu ekledik
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Kayıt Ol", fontSize = 24.sp, textAlign = TextAlign.Center)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextField(value = firstName,
+            onValueChange = { firstName = it },
+            label = { Text("Ad") },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextField(value = lastName,
+            onValueChange = { lastName = it },
+            label = { Text("Soyad") },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextField(value = email,
+            onValueChange = { email = it },
+            label = { Text("Email") },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextField(value = password,
+            onValueChange = { password = it },
+            label = { Text("Şifre") },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth(),
+            visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            trailingIcon = {
+                IconButton(onClick = { showPassword = !showPassword }) {
+                    Icon(
+                        imageVector = if (showPassword) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                        contentDescription = "Toggle password visibility"
+                    )
+                }
+            })
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = { /*TODO: Handle registration*/ }, modifier = Modifier.fillMaxWidth()) {
+            Text("Kayıt Ol")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextButton(
+            onClick = { /*TODO: Handle login screen navigation*/ },
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Text("Giriş Yap")
         }
     }
 }
@@ -325,4 +405,10 @@ fun PreviewUserProfileScreen() {
 @Composable
 fun PreviewLoginScreen() {
     LoginScreen()
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewRegisterScreen() {
+    RegisterScreen()
 }
