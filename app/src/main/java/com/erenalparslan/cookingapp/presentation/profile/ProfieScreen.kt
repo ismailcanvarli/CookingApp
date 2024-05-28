@@ -121,28 +121,23 @@ fun ButtonCard(text: String, iconRes: Int, onClick: () -> Unit) {
 fun UserProfileScreen() {
 
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
-    // TODO: Gerçek tarif görsellerini buraya koyun
-    // Örnek bir tarif listesi oluşturun
     val recipes = List(10) { "https://example.com/image_$it.jpg" }
-    // Profil fotoğrafı ve kullanıcı bilgileri
     val photoPickerLauncher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia(),
             onResult = { uri -> selectedImageUri = uri })
-    // Profil fotoğrafı
     val painter: Painter? = selectedImageUri?.let { rememberAsyncImagePainter(model = it) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.Top, // Ekranın en üstünde başlamak için
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // Kullanıcı adı ve ayarlar butonu
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp), // Üstte 16.dp boşluk bırak
+                .padding(top = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(text = "Kullanıcı Adı", fontSize = 28.sp)
@@ -151,13 +146,11 @@ fun UserProfileScreen() {
             }
         }
 
-        // Profil fotoğrafı ve kullanıcı bilgileri
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Profil fotoğrafı
             Image(painter = painter ?: painterResource(id = R.drawable.profile_picture),
                 contentDescription = "Profil Fotoğrafı",
                 modifier = Modifier
@@ -165,80 +158,39 @@ fun UserProfileScreen() {
                     .clickable {
                         photoPickerLauncher.launch(
                             PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                        ) // Profil fotoğrafına tıklanınca galeriyi aç
+                        )
                     })
 
-            // Kullanıcı bilgileri
-            Row(
-                modifier = Modifier
-                    .padding(start = 16.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "10", fontSize = 20.sp) // TODO: Gerçek tarif sayısını buraya koyun
-                    Text(text = "Tarif", fontSize = 12.sp)
-                }
-                Spacer(modifier = Modifier.width(16.dp)) // Arada 16.dp boşluk bırak
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = "100", fontSize = 20.sp
-                    ) // TODO: Gerçek takipçi sayısını buraya koyun
-                    Text(text = "Takipçi", fontSize = 12.sp)
-                }
-                Spacer(modifier = Modifier.width(16.dp)) // Arada 16.dp boşluk bırak
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = "50", fontSize = 20.sp
-                    ) // TODO: Gerçek takip edilen sayısını buraya koyun
-                    Text(text = "Takip", fontSize = 12.sp)
-                }
-            }
+            // Açıklama kısmını profil fotoğrafının yanına taşıdık
+            Text(
+                text = "Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama açıklama ",
+                modifier = Modifier.padding(start = 16.dp),
+                textAlign = TextAlign.Start
+            )
         }
 
-        // Açıklama kısmı
-        Text(
-            text = "Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama açıklama ", // TODO: Gerçek açıklamayı buraya koyun
-            modifier = Modifier.padding(vertical = 16.dp), textAlign = TextAlign.Center
-        )
-
-        // Düzenle ve Profil Paylaş butonları
-        Row(
-            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
+        // "Profil Paylaş" butonunu kaldırdık. Sadece "Düzenle" butonu kaldı.
+        Button(
+            onClick = { /*TODO: Düzenleme işlemi*/ },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
         ) {
-            Button(
-                onClick = { /*TODO: Düzenleme işlemi*/ },
-                modifier = Modifier
-                    .weight(1f) // Bu satırı ekledik
-                    .padding(end = 8.dp) // Bu satırı ekledik
-            ) {
-                Text(text = "Düzenle")
-            }
-            Button(
-                onClick = { /*TODO: Profil paylaşma işlemi*/ },
-                modifier = Modifier
-                    .weight(1f) // Bu satırı ekledik
-                    .padding(start = 8.dp) // Bu satırı ekledik
-            ) {
-                Text(text = "Profil Paylaş")
-            }
+            Text(text = "Düzenle")
         }
 
-        // Tariflerin görüntülendiği bölüm
         LazyColumn(
             modifier = Modifier.padding(top = 8.dp),
-        ) { // Dıştaki LazyColumn
-            items(recipes.chunked(3)) { rowRecipes -> // 'recipes' listesini 3'lü gruplara böl
-                Row(horizontalArrangement = Arrangement.SpaceEvenly) { // İçteki Row
-                    rowRecipes.forEachIndexed { index, recipe -> // Her bir tarif için
+        ) {
+            items(recipes.chunked(3)) { rowRecipes ->
+                Row(horizontalArrangement = Arrangement.SpaceEvenly) {
+                    rowRecipes.forEachIndexed { index, recipe ->
                         Card(
                             modifier = Modifier.size(120.dp)
                         ) {
-                            // Tarif görseli
                             Image(
-                                painter = rememberAsyncImagePainter(model = recipe), // 'recipe' gerçek tarif görseli olmalı
-                                contentDescription = "Tarif Görseli $index", // Uygun bir içerik açıklaması ekleyin
+                                painter = rememberAsyncImagePainter(model = recipe),
+                                contentDescription = "Tarif Görseli $index",
                                 modifier = Modifier.fillMaxSize()
                             )
                         }
