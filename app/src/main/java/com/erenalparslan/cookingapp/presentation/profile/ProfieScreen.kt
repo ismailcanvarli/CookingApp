@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -37,8 +38,7 @@ fun ProfileScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Column(
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
+            verticalArrangement = Arrangement.Center, modifier = Modifier.fillMaxSize()
         ) {
             Text(
                 text = "Yemeğinizin ayrıntılarına daha kolay ulaşmak için giriş yapın ",
@@ -93,8 +93,107 @@ fun ButtonCard(text: String, iconRes: Int, onClick: () -> Unit) {
     }
 }
 
+@Composable
+fun UserProfileScreen() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.Top, // Ekranın en üstünde başlamak için
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        // Kullanıcı adı ve ayarlar butonu
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp), // Üstte 16.dp boşluk bırak
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Kullanıcı Adı", fontSize = 28.sp)
+            Button(onClick = { /*TODO: Ayarlar ekranına yönlendirme*/ }) {
+                Text(text = "Ayarlar")
+            }
+        }
+
+        // Profil fotoğrafı ve kullanıcı bilgileri
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Profil fotoğrafı
+            Image(
+                painter = painterResource(id = R.drawable.profile_picture), // TODO: Gerçek profil fotoğrafını buraya koyun
+                contentDescription = "Profil Fotoğrafı", modifier = Modifier.size(100.dp)
+            )
+
+            // Kullanıcı bilgileri
+            Row(
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "10", fontSize = 20.sp) // TODO: Gerçek tarif sayısını buraya koyun
+                    Text(text = "Tarif", fontSize = 12.sp)
+                }
+                Spacer(modifier = Modifier.width(16.dp)) // Arada 16.dp boşluk bırak
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = "100", fontSize = 20.sp
+                    ) // TODO: Gerçek takipçi sayısını buraya koyun
+                    Text(text = "Takipçi", fontSize = 12.sp)
+                }
+                Spacer(modifier = Modifier.width(16.dp)) // Arada 16.dp boşluk bırak
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = "50", fontSize = 20.sp
+                    ) // TODO: Gerçek takip edilen sayısını buraya koyun
+                    Text(text = "Takip", fontSize = 12.sp)
+                }
+            }
+        }
+
+        // Açıklama kısmı
+        Text(
+            text = "Açıklama Açıklama Açıklama Açıklama Açıklama Açıklama açıklama ", // TODO: Gerçek açıklamayı buraya koyun
+            modifier = Modifier.padding(vertical = 16.dp), textAlign = TextAlign.Center
+        )
+
+        // Düzenle ve Profil Paylaş butonları
+        Row(
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Button(
+                onClick = { /*TODO: Düzenleme işlemi*/ },
+                modifier = Modifier
+                    .weight(1f) // Bu satırı ekledik
+                    .padding(end = 8.dp) // Bu satırı ekledik
+            ) {
+                Text(text = "Düzenle")
+            }
+            Button(
+                onClick = { /*TODO: Profil paylaşma işlemi*/ },
+                modifier = Modifier
+                    .weight(1f) // Bu satırı ekledik
+                    .padding(start = 8.dp) // Bu satırı ekledik
+            ) {
+                Text(text = "Profil Paylaş")
+            }
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewProfileScreen() {
     ProfileScreen()
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewUserProfileScreen() {
+    UserProfileScreen()
 }
