@@ -1,3 +1,7 @@
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,8 +23,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -99,9 +108,16 @@ fun ButtonCard(text: String, iconRes: Int, onClick: () -> Unit) {
 @Composable
 fun UserProfileScreen() {
 
+    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
     // TODO: Gerçek tarif görsellerini buraya koyun
     // Örnek bir tarif listesi oluşturun
     val recipes = List(10) { "https://example.com/image_$it.jpg" }
+    // Profil fotoğrafı ve kullanıcı bilgileri
+    val photoPickerLauncher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia(),
+            onResult = { uri -> selectedImageUri = uri })
+    // Profil fotoğrafı
+    val painter: Painter? = selectedImageUri?.let { rememberAsyncImagePainter(model = it) }
 
     Column(
         modifier = Modifier
@@ -130,10 +146,15 @@ fun UserProfileScreen() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Profil fotoğrafı
-            Image(
-                painter = painterResource(id = R.drawable.profile_picture), // TODO: Gerçek profil fotoğrafını buraya koyun
-                contentDescription = "Profil Fotoğrafı", modifier = Modifier.size(100.dp)
-            )
+            Image(painter = painter ?: painterResource(id = R.drawable.profile_picture),
+                contentDescription = "Profil Fotoğrafı",
+                modifier = Modifier
+                    .size(100.dp)
+                    .clickable {
+                        photoPickerLauncher.launch(
+                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                        ) // Profil fotoğrafına tıklanınca galeriyi aç
+                    })
 
             // Kullanıcı bilgileri
             Row(
