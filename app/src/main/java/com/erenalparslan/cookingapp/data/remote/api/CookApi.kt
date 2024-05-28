@@ -1,46 +1,78 @@
 package com.erenalparslan.cookingapp.data.remote.api
 
 import com.erenalparslan.cookingapp.data.remote.response.CookDto
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
-import java.util.Locale.Category
 
 interface CookApi {
 
-    @GET("v1/recipes/{id}")
-    suspend fun getRecipeById(@Path("id") id :Int): CookDto
+    // recipe operations
+    @GET("/v1/recipes")
+    suspend fun getRecipe(): CookDto
 
-    @GET("v1/recipes")
-    suspend fun getCook(): CookDto
+    @POST("/v1/recipes")
+    suspend fun addRecipe(): CookDto
 
-    @GET("v1/recipes/{category}")
-    suspend fun getCookByCategory(@Path("category") category: String): CookDto
+    @POST("/v1/recipes/{recipeId}/save")
+    suspend fun saveRecipe(@Path("recipeId") recipeId: Int): CookDto
 
-    @GET("v1/recipes/search")
+    @DELETE("/v1/recipes/{recipeId}/save")
+    suspend fun unsaveRecipe(@Path("recipeId") recipeId: Int): CookDto
+
+    @POST("/v1/recipes/{recipeId}/like")
+    suspend fun likeRecipe(@Path("recipeId") recipeId: Int): CookDto
+
+    @DELETE("/v1/recipes/{recipeId}/like")
+    suspend fun unlikeRecipe(@Path("recipeId") recipeId: Int): CookDto
+
+    @GET("/v1/recipes/{id}")
+    suspend fun getRecipeById(@Path("id") id: Int): CookDto
+
+    @DELETE("/v1/recipes/{id}")
+    suspend fun deleteRecipe(@Path("id") id: Int): CookDto
+
+    @GET("/v1/recipes/search")
     suspend fun searchRecipes(): CookDto
 
-    @GET("v1/recipes/recipe-of-the-day")
-    suspend fun getRecipeDaily(): CookDto
+    @GET("/v1/recipes/saved")
+    suspend fun getSavedRecipes(): CookDto
 
-    @GET("v1/members/login/google")
-    suspend fun getGoogleLogin(): CookDto
+    @GET("/v1/recipes/recipes-of-the-day")
+    suspend fun getRecipeOfTheDay(): CookDto
 
-    @GET("v1/members")
+    @GET("/v1/recipes//liked")
+    suspend fun getLikedRecipes(): CookDto
+
+    @GET(("/v1/recipes/instructionDetail"))
+    suspend fun getInstructionDetail(): CookDto
+
+    @GET("/v1/recipes/category/{category}")
+    suspend fun getRecipeByCategory(@Path("category") category: String): CookDto
+
+    //member operations
+    @POST("/v1/members/register")
+    suspend fun register(): CookDto
+
+    @POST("/v1/members/login")
+    suspend fun login(): CookDto
+
+    @POST("/v1/members/login/google")
+    suspend fun googleLogin(): CookDto
+
+    @GET("/v1/members")
     suspend fun getProfile(): CookDto
 
-    @GET("v1/recipes/saved")
-    suspend fun getSaveList(): CookDto
+    @GET("/v1/members/{memberId}")
+    suspend fun getProfileById(@Path("memberId") memberId: Int): CookDto
 
-    @GET("v1/recipes/liked")
+    @GET("/v1/members/{memberId}/recipes")
+    suspend fun getProfileRecipes(@Path("memberId") memberId: Int): CookDto
 
-    suspend fun getLikeList(): CookDto
-
-    @GET("/v1/recipes/{recipeId}/like")
-
-    suspend fun recipeLikeList(@Path("recipeId") recipeId: Int): CookDto
-
-    @GET("v1/recipes/{recipeId}/save")
-    suspend fun recipeSave(@Path("recipeId") recipeId: Int): CookDto
+    // image upload operations
+    @POST("/v1/images/upload")
+    suspend fun uploadImage(): CookDto
 
     companion object {
 

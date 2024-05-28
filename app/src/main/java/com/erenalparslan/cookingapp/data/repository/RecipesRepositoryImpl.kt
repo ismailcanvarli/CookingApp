@@ -18,7 +18,7 @@ class RecipesRepositoryImpl @Inject constructor(private val cookApi: CookApi) : 
             emit(Resource.Loading(isLoading = true))
 
             val recipesListFromApi = try {
-                cookApi.getCook()
+                cookApi.getRecipe()
             } catch (e: IOException) {
                 e.printStackTrace()
                 emit(Resource.Error(message = "Error loading movies"))
