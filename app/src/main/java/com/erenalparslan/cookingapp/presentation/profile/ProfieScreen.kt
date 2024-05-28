@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,24 +33,23 @@ fun ProfileScreen() {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.SpaceAround,
+        verticalArrangement = Arrangement.Center, // Bu satırı değiştirdik
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = "Yemeğinizin ayrıntılarına daha kolay ulaşmak için giriş yapın ",
-            fontSize = 28.sp,
-            modifier = Modifier.padding(bottom = 26.dp),
-            fontWeight = FontWeight.Medium,
-            textAlign = TextAlign.Center,
-            lineHeight = TextUnit.Unspecified
-
-
-        )
-        Column {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text(
+                text = "Yemeğinizin ayrıntılarına daha kolay ulaşmak için giriş yapın ",
+                fontSize = 28.sp,
+                modifier = Modifier.padding(bottom = 26.dp),
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Center,
+                lineHeight = TextUnit.Unspecified
+            )
             ButtonCard(text = "Gmail ile devam et", iconRes = R.drawable.google) {
 
-            }
-            ButtonCard(text = "Facebook ile devam et", iconRes = R.drawable.facebook) {
             }
             ButtonCard(text = "Email ile devam et", iconRes = R.drawable.ic_mail) {
 
@@ -70,8 +70,9 @@ fun ButtonCard(text: String, iconRes: Int, onClick: () -> Unit) {
         ),
         shape = RoundedCornerShape(8.dp),
     ) {
-        Column(modifier = Modifier.fillMaxWidth().
-        clickable {  }) {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .clickable { }) {
             Row(
                 modifier = Modifier
                     .padding(16.dp)
@@ -85,11 +86,15 @@ fun ButtonCard(text: String, iconRes: Int, onClick: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = text,
-                    fontSize = 16.sp
+                    text = text, fontSize = 16.sp
                 )
             }
         }
-
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewProfileScreen() {
+    ProfileScreen()
 }
