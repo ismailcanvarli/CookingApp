@@ -75,7 +75,7 @@ class MainActivity : ComponentActivity() {
                                 }
                                 // Search screen
                                 composable(Screen.Search.route) {
-                                    SearchScreen()
+                                    CookScreen(navController,true)
                                 }
                                 // Recipe screen
                                 composable(Screen.AddRecipe.route) {

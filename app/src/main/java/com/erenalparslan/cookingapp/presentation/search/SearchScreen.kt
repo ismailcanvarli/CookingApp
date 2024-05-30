@@ -9,22 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import com.erenalparslan.cookingapp.presentation.cook.CookScreen
 
 @Composable
-fun SearchScreen(){
+fun SearchScreen(navHostController: NavHostController) {
 
-    Surface(modifier = Modifier.fillMaxSize(),
-    ) {
-        Column(verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "Search")
-        }
-    }
+    CookScreen(navHostController = navHostController)
 
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewSearchScreen() {
-    SearchScreen()
 }

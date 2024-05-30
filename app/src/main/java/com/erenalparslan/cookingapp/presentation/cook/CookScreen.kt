@@ -42,43 +42,53 @@ import com.erenalparslan.cookingapp.presentation.components.SearchBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CookScreen(navHostController: NavHostController) {
+fun CookScreen(navHostController: NavHostController, isSearch: Boolean = false) {
     val viewModel = hiltViewModel<CookViewModel>()
     val state by rememberUpdatedState(newValue = viewModel.cookState.collectAsState().value)
 
-    Log.d("erenss", "CookScreen:$state ")
 
     Surface {
         Column {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.CenterStart),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    IconButton(onClick = { navHostController.popBackStack() }) {
-                        Icon(imageVector = Icons.Rounded.ArrowBackIos, contentDescription = "Back")
-                    }
-                }
-
+            if (!isSearch) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .align(Alignment.Center)
+                        .padding(10.dp)
                 ) {
-                    Text(
-                        text = viewModel.cook,
-                        textAlign = TextAlign.Center,
-                        fontSize = 24.sp,
-                        modifier = Modifier.align(Alignment.Center)
-                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.CenterStart),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(onClick = { navHostController.popBackStack() }) {
+                            Icon(
+                                imageVector = Icons.Rounded.ArrowBackIos,
+                                contentDescription = "Back"
+                            )
+                        }
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.Center)
+                    ) {
+                        Text(
+                            text = viewModel.cook,
+                            textAlign = TextAlign.Center,
+                            fontSize = 24.sp,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
                 }
             }
+
+
+            SearchBar(
+                text = "", readOnly = false, onValueChange = {}, modifier = Modifier.padding(10.dp)
+            )
+
             if (state.isLoading) {
                 Box(
                     modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
@@ -94,9 +104,7 @@ fun CookScreen(navHostController: NavHostController) {
                 }
             }
 
-            SearchBar(
-                text = "", readOnly = false, onValueChange = {}, modifier = Modifier.padding(10.dp)
-            )
+
             Spacer(modifier = Modifier.height(10.dp))
 
             LazyVerticalGrid(columns = GridCells.Fixed(2)) {
