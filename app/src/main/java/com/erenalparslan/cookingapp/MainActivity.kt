@@ -1,6 +1,5 @@
 package com.erenalparslan.cookingapp
 
-import LoginScreen
 import ProfileScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -41,8 +40,8 @@ import com.erenalparslan.cookingapp.presentation.addRecipe.AddRecipeScreen
 import com.erenalparslan.cookingapp.presentation.cook.CookScreen
 import com.erenalparslan.cookingapp.presentation.favorites.FavoritesScreen
 import com.erenalparslan.cookingapp.presentation.home.HomeScreen
+import com.erenalparslan.cookingapp.presentation.profile.LoginScreen
 import com.erenalparslan.cookingapp.presentation.recipeDetail.RecipeDetailScreen
-import com.erenalparslan.cookingapp.presentation.search.SearchScreen
 import com.erenalparslan.cookingapp.ui.theme.CookingAppTheme
 import com.erenalparslan.cookingapp.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
