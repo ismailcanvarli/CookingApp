@@ -38,10 +38,10 @@ import com.erenalparslan.cookingapp.util.Screen
 @Composable
 fun HomeScreen(navController: NavHostController? = null) {
     val menuItems = listOf(
-        Pair(R.drawable.soup, stringResource(R.string.soup)),
-        Pair(R.drawable.main_food, stringResource(R.string.main_course)),
-        Pair(R.drawable.dessert, stringResource(R.string.dessert)),
-        Pair(R.drawable.drink, stringResource(R.string.drink))
+        Triple(R.drawable.soup, stringResource(R.string.soup),"corba"),
+        Triple(R.drawable.main_food, stringResource(R.string.main_course),"ana-yemek"),
+        Triple(R.drawable.dessert, stringResource(R.string.dessert),"tatli"),
+        Triple(R.drawable.drink, stringResource(R.string.drink),"icecek")
     )
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val itemHeight = (screenHeight / 2 - 104.dp)
@@ -75,7 +75,7 @@ fun HomeScreen(navController: NavHostController? = null) {
                         .padding(8.dp)
                         .fillMaxWidth()
                         .height(itemHeight),
-                        onClick = { navController?.navigate(Screen.Cook.route + "/${menuItem.second}") }) {
+                        onClick = { navController?.navigate(Screen.Cook.route + "/${menuItem.third}") }) {
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth() // Fill the width of the parent

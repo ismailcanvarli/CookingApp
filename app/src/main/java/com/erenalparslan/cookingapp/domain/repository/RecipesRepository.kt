@@ -8,5 +8,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface RecipesRepository {
 
-    suspend fun getRecipes(category: String):Flow<Resource<List<CookDtoItem>>>
+    suspend fun getRecipesByCategory(category: String):Flow<Resource<List<CookDtoItem>>>
+    suspend fun getRecipes():Flow<Resource<List<CookDtoItem>>>
+    suspend fun getRecipesByName(foodName: String): Flow<Resource<List<CookDtoItem>>>
+    suspend fun getRecipesById(id: Int): Flow<Resource<CookDtoItem>>
 }

@@ -22,19 +22,19 @@ data class CookDtoItem(
     var imageUrl: String? = null,
     @SerializedName("ingredients")
     @Expose
-    var ingredients: List<İngredient?>? = null,
+    var ingredients: List<Ingredient?>? = null,
     @SerializedName("instructions")
     @Expose
-    var instructions: List<İnstruction?>? = null,
+    var instructions: List<Instruction?>? = null,
     @SerializedName("preparationTime")
     @Expose
     var preparationTime: String? = null,
     @SerializedName("recipeName")
     @Expose
     var recipeName: String? = null,
-    @SerializedName("score")
+    @SerializedName("likeCount")
     @Expose
-    var score: Double? = null,
+    var likeCount: Int? = null,
     @SerializedName("servesFor")
     @Expose
     var servesFor: String? = null,

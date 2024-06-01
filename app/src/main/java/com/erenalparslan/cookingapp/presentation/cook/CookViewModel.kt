@@ -27,13 +27,18 @@ class CookViewModel @Inject constructor(
     private val _cookState = MutableStateFlow(CookListState())
     val cookState = _cookState.asStateFlow()
 
+
     init {
-        getRecipe()
+        if (cook == "") {
+            getRecipes()
+        } else {
+            getRecipesByCategory()
+        }
     }
 
-    private fun getRecipe() =
+    private fun getRecipesByCategory() =
         viewModelScope.launch {
-            recipesRepository.getRecipes(cook).collectLatest { result ->
+            recipesRepository.getRecipesByCategory(cook).collectLatest { result ->
                 when (result) {
                     is Resource.Error -> _cookState.update {
                         it.copy(
@@ -59,6 +64,66 @@ class CookViewModel @Inject constructor(
                 }
 
             }
+        }
+
+    private fun getRecipes() =
+        viewModelScope.launch {
+            recipesRepository.getRecipes().collectLatest { result ->
+                when (result) {
+                    is Resource.Error -> _cookState.update {
+                        it.copy(
+                            isError = true,
+                            isLoading = false
+                        )
+                    }
+
+                    is Resource.Loading -> _cookState.update {
+                        it.copy(
+                            isLoading = true,
+                            isError = false
+                        )
+                    }
+
+                    is Resource.Success -> _cookState.update {
+                        it.copy(
+                            isLoading = false,
+                            isError = false,
+                            cookList = result.data!!
+                        )
+                    }
+                }
+
+            }
+        }
+
+    fun getRecipesByFoodName(foodName: String) =
+        viewModelScope.launch {
+            if (foodName == "") {
+                getRecipes()
+            } else {
+                recipesRepository.getRecipesByName(foodName).collectLatest { result ->
+                    when (result) {
+                        is Resource.Loading -> _cookState.update {
+                            it.copy(
+                                isLoading = true,
+                                isError = false
+                            )
+                        }
+
+                        is Resource.Success -> _cookState.update {
+                            it.copy(
+                                isLoading = false,
+                                isError = false,
+                                cookList = result.data!!
+                            )
+                        }
+
+                        is Resource.Error -> {}
+                    }
+
+                }
+            }
+
         }
 
 

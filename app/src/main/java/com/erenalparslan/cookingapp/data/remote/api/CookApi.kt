@@ -1,10 +1,12 @@
 package com.erenalparslan.cookingapp.data.remote.api
 
 import com.erenalparslan.cookingapp.data.remote.response.CookDto
+import com.erenalparslan.cookingapp.data.remote.response.CookDtoItem
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface CookApi {
 
@@ -28,13 +30,16 @@ interface CookApi {
     suspend fun unlikeRecipe(@Path("recipeId") recipeId: Int): CookDto
 
     @GET("/v1/recipes/{id}")
-    suspend fun getRecipeById(@Path("id") id: Int): CookDto
+    suspend fun getRecipeById(@Path("id") id: Int): CookDtoItem
 
     @DELETE("/v1/recipes/{id}")
     suspend fun deleteRecipe(@Path("id") id: Int): CookDto
 
     @GET("/v1/recipes/search")
-    suspend fun searchRecipes(): CookDto
+    suspend fun searchRecipes(
+        @Query("foodName") foodName: String,
+        @Query("category") category: String?=null
+    ): CookDto
 
     @GET("/v1/recipes/saved")
     suspend fun getSavedRecipes(): CookDto
@@ -76,6 +81,6 @@ interface CookApi {
 
     companion object {
 
-        const val BASE_URL = "https://crop-roommates-hansen-papers.trycloudflare.com"
+        const val BASE_URL = "https://tracker-wholesale-divorce-holes.trycloudflare.com"
     }
 }

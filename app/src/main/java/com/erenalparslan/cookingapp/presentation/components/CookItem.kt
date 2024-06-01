@@ -152,7 +152,7 @@ fun CookItem(
                     contentDescription = "star",
                     tint = Color.Red
                 )
-                Text(text = cook.score.toString(), fontSize = 12.sp)
+                Text(text = cook.likeCount.toString(), fontSize = 12.sp)
             }
 
             Row(modifier = Modifier.weight(1f).wrapContentHeight(),
@@ -164,7 +164,7 @@ fun CookItem(
                     contentDescription = "time",
                     tint = Color.Cyan,
                 )
-                Text(text = cook.preparationTime.toString(), fontSize = 12.sp, lineHeight = TextUnit.Unspecified, letterSpacing = TextUnit.Unspecified)
+                Text(text = cook.totalTime.toString(), fontSize = 12.sp, lineHeight = TextUnit.Unspecified, letterSpacing = TextUnit.Unspecified)
 
             }
 

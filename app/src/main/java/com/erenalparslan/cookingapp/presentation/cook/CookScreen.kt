@@ -45,6 +45,7 @@ import com.erenalparslan.cookingapp.presentation.components.SearchBar
 fun CookScreen(navHostController: NavHostController, isSearch: Boolean = false) {
     val viewModel = hiltViewModel<CookViewModel>()
     val state by rememberUpdatedState(newValue = viewModel.cookState.collectAsState().value)
+    var searchQuery by remember { mutableStateOf("") }
 
 
     Surface {
@@ -86,7 +87,11 @@ fun CookScreen(navHostController: NavHostController, isSearch: Boolean = false) 
 
 
             SearchBar(
-                text = "", readOnly = false, onValueChange = {}, modifier = Modifier.padding(10.dp)
+                text = searchQuery,
+                onValueChange = { query ->
+                    searchQuery = query
+                    viewModel.getRecipesByFoodName(query)
+                },readOnly = false, modifier = Modifier.padding(10.dp)
             )
 
             if (state.isLoading) {
