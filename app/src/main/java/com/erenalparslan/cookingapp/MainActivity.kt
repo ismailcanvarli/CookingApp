@@ -1,5 +1,6 @@
 package com.erenalparslan.cookingapp
 
+import LoginScreen
 import ProfileScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -88,7 +89,7 @@ class MainActivity : ComponentActivity() {
                                 }
                                 // Login screen
                                 composable(Screen.Profile.route) {
-                                    ProfileScreen()
+                                    ProfileScreen(navController)
                                 }
                                 composable(Screen.Cook.route + "/{cookName}",
                                     arguments = listOf(
@@ -102,6 +103,10 @@ class MainActivity : ComponentActivity() {
                                     )) {
                                     RecipeDetailScreen(navController)
                                 }
+                                composable(Screen.Login.route) {
+                                    LoginScreen()
+                                }
+
                             }
                         }
                     }
