@@ -40,6 +40,7 @@ import com.erenalparslan.cookingapp.presentation.addRecipe.AddRecipeScreen
 import com.erenalparslan.cookingapp.presentation.cook.CookScreen
 import com.erenalparslan.cookingapp.presentation.favorites.FavoritesScreen
 import com.erenalparslan.cookingapp.presentation.home.HomeScreen
+import com.erenalparslan.cookingapp.presentation.making.RecipeMakingScreen
 import com.erenalparslan.cookingapp.presentation.profile.LoginScreen
 import com.erenalparslan.cookingapp.presentation.profile.RegisterScreen
 import com.erenalparslan.cookingapp.presentation.recipeDetail.RecipeDetailScreen
@@ -108,6 +109,12 @@ class MainActivity : ComponentActivity() {
                                 }
                                 composable(Screen.Register.route) {
                                     RegisterScreen(navController)
+                                }
+                                composable(Screen.Making.route + "/{id}",
+                                    arguments = listOf(
+                                        navArgument("id") { type = NavType.IntType }
+                                    )) {
+                                    RecipeMakingScreen(navController)
                                 }
 
                             }

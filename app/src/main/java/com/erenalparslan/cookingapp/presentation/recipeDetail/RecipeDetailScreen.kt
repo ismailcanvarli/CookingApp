@@ -1,6 +1,5 @@
 package com.erenalparslan.cookingapp.presentation.recipeDetail
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,14 +8,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIos
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,6 +32,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.erenalparslan.cookingapp.data.remote.response.CookDtoItem
 import com.erenalparslan.cookingapp.presentation.components.RecipeIntroductionsItem
 import com.erenalparslan.cookingapp.presentation.components.RecipeMaterialItem
+import com.erenalparslan.cookingapp.util.Screen
 
 @Composable
 fun RecipeDetailScreen(navHostController: NavHostController) {
@@ -61,7 +59,9 @@ fun RecipeDetailScreen(navHostController: NavHostController) {
     state.cook?.let { cook ->
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 cook.recipeName?.let { TopBar(it, navHostController) }
@@ -79,7 +79,14 @@ fun RecipeDetailScreen(navHostController: NavHostController) {
                 RecipeIntroductions(cook)
             }
             item {
-                Log.d("erens", "RecipeDetailScreen: ${state.cook}")
+                Button(
+                    onClick = { navHostController.navigate(Screen.Making.route + "/${cook.id}") },
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(20.dp)
+                ) {
+                    Text(text = "Tarifi Yapmaya Başla")
+                }
             }
         }
     }

@@ -1,18 +1,17 @@
 package com.erenalparslan.cookingapp.presentation.cook
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.erenalparslan.cookingapp.data.remote.api.CookApi
-import com.erenalparslan.cookingapp.data.repository.RecipesRepositoryImpl
+import com.erenalparslan.cookingapp.data.remote.response.Instruction
 import com.erenalparslan.cookingapp.domain.repository.RecipesRepository
 import com.erenalparslan.cookingapp.util.Resource
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject

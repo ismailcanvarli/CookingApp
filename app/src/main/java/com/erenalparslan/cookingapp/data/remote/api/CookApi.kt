@@ -2,9 +2,12 @@ package com.erenalparslan.cookingapp.data.remote.api
 
 import com.erenalparslan.cookingapp.data.remote.response.CookDto
 import com.erenalparslan.cookingapp.data.remote.response.CookDtoItem
+import com.erenalparslan.cookingapp.data.remote.response.GeminiResponse
+import com.erenalparslan.cookingapp.data.remote.response.Instruction
 import com.erenalparslan.cookingapp.data.remote.response.LoginDto
 import com.erenalparslan.cookingapp.data.remote.response.LoginResponse
 import com.erenalparslan.cookingapp.data.remote.response.RegisterDto
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -82,6 +85,9 @@ interface CookApi {
     // image upload operations
     @POST("/v1/images/upload")
     suspend fun uploadImage(): CookDto
+
+    @GET("/v1/recipes/instructionDetail")
+    suspend fun askGemini(@Query("instruction") instruction: String): GeminiResponse
 
     companion object {
 

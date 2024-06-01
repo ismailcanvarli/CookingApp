@@ -2,6 +2,7 @@ package com.erenalparslan.cookingapp.data.repository
 
 import com.erenalparslan.cookingapp.data.remote.api.CookApi
 import com.erenalparslan.cookingapp.data.remote.response.CookDtoItem
+import com.erenalparslan.cookingapp.data.remote.response.GeminiResponse
 import com.erenalparslan.cookingapp.data.remote.response.LoginDto
 import com.erenalparslan.cookingapp.data.remote.response.LoginResponse
 import com.erenalparslan.cookingapp.data.remote.response.RegisterDto
@@ -10,6 +11,7 @@ import com.erenalparslan.cookingapp.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import retrofit2.awaitResponse
 import java.io.IOException
 import javax.inject.Inject
 
@@ -157,6 +159,32 @@ class RecipesRepositoryImpl @Inject constructor(private val cookApi: CookApi) : 
             }
 
             emit(Resource.Success(recipesListFromApi))
+
+        }
+    }
+
+    override suspend fun askGemini(question: String): Flow<Resource<String>> {
+        return flow {
+            emit(Resource.Loading(isLoading = true))
+
+            val recipesListFromApi = try {
+                cookApi.askGemini(question)
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+                emit(Resource.Error(message = e.printStackTrace().toString()))
+                return@flow
+            } catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Resource.Error(message = e.printStackTrace().toString()))
+                return@flow
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(Resource.Error(message = e.printStackTrace().toString()))
+                return@flow
+            }
+
+            emit(Resource.Success(recipesListFromApi.explanation))
 
         }
     }

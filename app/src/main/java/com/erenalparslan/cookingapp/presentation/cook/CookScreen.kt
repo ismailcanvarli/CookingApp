@@ -1,7 +1,5 @@
 package com.erenalparslan.cookingapp.presentation.cook
 
-import android.util.Log
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,7 +12,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIos
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -31,12 +28,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.erenalparslan.cookingapp.presentation.components.CookItem
 import com.erenalparslan.cookingapp.presentation.components.SearchBar
 
@@ -91,7 +86,7 @@ fun CookScreen(navHostController: NavHostController, isSearch: Boolean = false) 
                 onValueChange = { query ->
                     searchQuery = query
                     viewModel.getRecipesByFoodName(query)
-                },readOnly = false, modifier = Modifier.padding(10.dp)
+                }, readOnly = false, modifier = Modifier.padding(10.dp)
             )
 
             if (state.isLoading) {
@@ -120,60 +115,4 @@ fun CookScreen(navHostController: NavHostController, isSearch: Boolean = false) 
             }
         }
     }
-}
-
-@Composable
-fun RecipeMakingScreen(navHostController: NavHostController) {
-    //TODO bu kısımda apiden gelen değer olacak.
-    // Tarifin aşamalarını bir liste olarak saklayalım
-    val recipeSteps = listOf("Aşama 1", "Aşama 2", "Aşama 3", "Aşama 4", "Aşama 5")
-    var currentStep by remember { mutableStateOf(0) }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // Şu anki aşamayı gösteren metin
-        Text(
-            text = recipeSteps[currentStep],
-            fontSize = 24.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Row(
-            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Button(
-                onClick = {
-                    // Geri butonuna tıklandığında bir önceki aşamaya geç
-                    if (currentStep > 0) currentStep--
-                }, modifier = Modifier
-                    .weight(1f)
-                    .padding(end = 8.dp)
-            ) {
-                Text(text = "Geri")
-            }
-            Button(
-                onClick = {
-                    // İleri butonuna tıklandığında bir sonraki aşamaya geç
-                    if (currentStep < recipeSteps.lastIndex) currentStep++
-                }, modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 8.dp)
-            ) {
-                Text(text = "İleri")
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewRecipeMakingScreen() {
-    val navHostController = rememberNavController()
-    RecipeMakingScreen(navHostController = navHostController)
 }
