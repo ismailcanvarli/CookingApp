@@ -41,6 +41,7 @@ import com.erenalparslan.cookingapp.presentation.cook.CookScreen
 import com.erenalparslan.cookingapp.presentation.favorites.FavoritesScreen
 import com.erenalparslan.cookingapp.presentation.home.HomeScreen
 import com.erenalparslan.cookingapp.presentation.profile.LoginScreen
+import com.erenalparslan.cookingapp.presentation.profile.RegisterScreen
 import com.erenalparslan.cookingapp.presentation.recipeDetail.RecipeDetailScreen
 import com.erenalparslan.cookingapp.ui.theme.CookingAppTheme
 import com.erenalparslan.cookingapp.util.Screen
@@ -103,7 +104,10 @@ class MainActivity : ComponentActivity() {
                                     RecipeDetailScreen(navController)
                                 }
                                 composable(Screen.Login.route) {
-                                    LoginScreen()
+                                    LoginScreen(navController)
+                                }
+                                composable(Screen.Register.route) {
+                                    RegisterScreen(navController)
                                 }
 
                             }

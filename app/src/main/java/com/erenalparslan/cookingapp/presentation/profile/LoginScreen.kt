@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,10 +32,18 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.erenalparslan.cookingapp.data.remote.response.LoginDto
+import com.erenalparslan.cookingapp.presentation.profile.viewmodel.ProfileViewModel
+import com.erenalparslan.cookingapp.presentation.recipeDetail.RecipeDetailViewModel
+import com.erenalparslan.cookingapp.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navHostController: NavHostController) {
+    val viewModel = hiltViewModel<ProfileViewModel>()
+    val state by viewModel.registerState.collectAsState()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
@@ -47,6 +56,10 @@ fun LoginScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Giriş Yap", fontSize = 24.sp, textAlign = TextAlign.Center)
+        
+        if (state.isSuccess){
+            Text(text = "fdfgsd")
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -78,14 +91,17 @@ fun LoginScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = { /*TODO: Handle login*/ }, modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = { viewModel.login(LoginDto(email = email, password = password)) },
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Text("Giriş Yap")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         TextButton(
-            onClick = { /*TODO: Handle register*/ },
+            onClick = { navHostController.navigate(Screen.Register.route) },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text("Hesap Oluştur")

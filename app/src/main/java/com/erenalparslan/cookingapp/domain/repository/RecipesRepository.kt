@@ -1,8 +1,9 @@
 package com.erenalparslan.cookingapp.domain.repository
 
-import com.erenalparslan.cookingapp.data.remote.response.CookDto
 import com.erenalparslan.cookingapp.data.remote.response.CookDtoItem
-import com.erenalparslan.cookingapp.domain.model.Cook
+import com.erenalparslan.cookingapp.data.remote.response.LoginDto
+import com.erenalparslan.cookingapp.data.remote.response.LoginResponse
+import com.erenalparslan.cookingapp.data.remote.response.RegisterDto
 import com.erenalparslan.cookingapp.util.Resource
 import kotlinx.coroutines.flow.Flow
 
@@ -12,4 +13,6 @@ interface RecipesRepository {
     suspend fun getRecipes():Flow<Resource<List<CookDtoItem>>>
     suspend fun getRecipesByName(foodName: String): Flow<Resource<List<CookDtoItem>>>
     suspend fun getRecipesById(id: Int): Flow<Resource<CookDtoItem>>
+    suspend fun register(member: RegisterDto): Flow<Resource<String>>
+    suspend fun login(member: LoginDto): Flow<Resource<LoginResponse>>
 }

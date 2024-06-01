@@ -1,9 +1,10 @@
 package com.erenalparslan.cookingapp.data.repository
 
 import com.erenalparslan.cookingapp.data.remote.api.CookApi
-import com.erenalparslan.cookingapp.data.remote.response.CookDto
 import com.erenalparslan.cookingapp.data.remote.response.CookDtoItem
-import com.erenalparslan.cookingapp.domain.model.Cook
+import com.erenalparslan.cookingapp.data.remote.response.LoginDto
+import com.erenalparslan.cookingapp.data.remote.response.LoginResponse
+import com.erenalparslan.cookingapp.data.remote.response.RegisterDto
 import com.erenalparslan.cookingapp.domain.repository.RecipesRepository
 import com.erenalparslan.cookingapp.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -62,7 +63,7 @@ class RecipesRepositoryImpl @Inject constructor(private val cookApi: CookApi) : 
         }
     }
 
-    override suspend fun getRecipesByName(foodName:String): Flow<Resource<List<CookDtoItem>>> {
+    override suspend fun getRecipesByName(foodName: String): Flow<Resource<List<CookDtoItem>>> {
         return flow {
             emit(Resource.Loading(isLoading = true))
 
@@ -107,6 +108,56 @@ class RecipesRepositoryImpl @Inject constructor(private val cookApi: CookApi) : 
             }
 
             emit(Resource.Success(recipesListFromApi))
+        }
+    }
+
+    override suspend fun register(member: RegisterDto): Flow<Resource<String>> {
+        return flow {
+            emit(Resource.Loading(isLoading = true))
+
+            val recipesListFromApi = try {
+                cookApi.register(member).toString()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                emit(Resource.Success(""))
+                return@flow
+            } catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Resource.Success("Error loading movies"))
+                return@flow
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(Resource.Success("Error loading movies"))
+                return@flow
+            }
+
+            emit(Resource.Success(recipesListFromApi))
+
+        }
+    }
+
+    override suspend fun login(member: LoginDto): Flow<Resource<LoginResponse>> {
+        return flow {
+            emit(Resource.Loading(isLoading = true))
+
+            val recipesListFromApi = try {
+                cookApi.login(member)
+            } catch (e: IOException) {
+                e.printStackTrace()
+                emit(Resource.Error(message = e.printStackTrace().toString()))
+                return@flow
+            } catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Resource.Error(message = e.printStackTrace().toString()))
+                return@flow
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(Resource.Error(message = e.printStackTrace().toString()))
+                return@flow
+            }
+
+            emit(Resource.Success(recipesListFromApi))
+
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.erenalparslan.cookingapp.di
 
 import com.erenalparslan.cookingapp.data.remote.api.CookApi
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +16,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-
+    val gson = GsonBuilder().setLenient().create()
     private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
@@ -28,7 +29,7 @@ object AppModule {
     @Singleton
     fun providesMovieApi() : CookApi {
         return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .baseUrl(CookApi.BASE_URL)
             .client(client)
             .build()

@@ -2,6 +2,10 @@ package com.erenalparslan.cookingapp.data.remote.api
 
 import com.erenalparslan.cookingapp.data.remote.response.CookDto
 import com.erenalparslan.cookingapp.data.remote.response.CookDtoItem
+import com.erenalparslan.cookingapp.data.remote.response.LoginDto
+import com.erenalparslan.cookingapp.data.remote.response.LoginResponse
+import com.erenalparslan.cookingapp.data.remote.response.RegisterDto
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -38,7 +42,7 @@ interface CookApi {
     @GET("/v1/recipes/search")
     suspend fun searchRecipes(
         @Query("foodName") foodName: String,
-        @Query("category") category: String?=null
+        @Query("category") category: String? = null
     ): CookDto
 
     @GET("/v1/recipes/saved")
@@ -58,10 +62,10 @@ interface CookApi {
 
     //member operations
     @POST("/v1/members/register")
-    suspend fun register(): CookDto
+    suspend fun register(@Body member: RegisterDto): String
 
     @POST("/v1/members/login")
-    suspend fun login(): CookDto
+    suspend fun login(@Body member: LoginDto): LoginResponse
 
     @POST("/v1/members/login/google")
     suspend fun googleLogin(): CookDto

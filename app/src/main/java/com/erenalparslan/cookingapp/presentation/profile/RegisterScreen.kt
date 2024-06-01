@@ -1,5 +1,6 @@
 package com.erenalparslan.cookingapp.presentation.profile
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,6 +21,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,10 +35,20 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.erenalparslan.cookingapp.data.remote.response.RegisterDto
+import com.erenalparslan.cookingapp.presentation.profile.viewmodel.ProfileViewModel
+import com.erenalparslan.cookingapp.util.Screen
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(navHostController: NavHostController) {
+    val viewModel = hiltViewModel<ProfileViewModel>()
+    val state by viewModel.registerState.collectAsState()
+
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -49,6 +63,11 @@ fun RegisterScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Kayıt Ol", fontSize = 24.sp, textAlign = TextAlign.Center)
+
+        if (state.isSuccess) {
+            Log.d("İsmoo", "Başarılıııııı: $state ")
+            Text(text = "Başarılı :)")
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -100,14 +119,24 @@ fun RegisterScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = { /*TODO: Handle registration*/ }, modifier = Modifier.fillMaxWidth()) {
+        Button(onClick = {
+            viewModel.register(
+                RegisterDto(
+                    name = firstName,
+                    surname = lastName,
+                    email = email,
+                    password = password
+                )
+            )
+
+        }, modifier = Modifier.fillMaxWidth()) {
             Text("Kayıt Ol")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         TextButton(
-            onClick = { /*TODO: Handle login screen navigation*/ },
+            onClick = { navHostController.navigate(Screen.Login.route) },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text("Giriş Yap")
