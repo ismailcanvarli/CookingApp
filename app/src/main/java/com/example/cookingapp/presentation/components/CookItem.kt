@@ -55,7 +55,7 @@ import com.example.cookingapp.util.Screen
 fun CookItem(
     cook: CookDtoItem, navHostController: NavHostController
 ) {
-    // Create an AsyncImagePainter with the movie's backdrop image URL
+    // Create an AsyncImagePainter with the recipe's backdrop image URL
     val imageState = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current).data(cook.imageUrl).size(Size.ORIGINAL)
             .build()
@@ -67,14 +67,14 @@ fun CookItem(
         mutableStateOf(defaultColor)
     }
 
-    // Main container for the movie item
+    // Main container for the recipe item
     Column(modifier = Modifier
         .height(240.dp) // Set the height to wrap the content
         .width(210.dp) // Set a fixed width for the item
         .padding(5.dp) // Apply padding around the item
         .clickable {
             navHostController.navigate(Screen.Details.route + "/${cook.id}")
-        } // Navigate to the movie details screen on click
+        } // Navigate to the recipe details screen on click
         .background(Color.White)
         .border(BorderStroke(1.dp, Color.Black))) {
         // Display an error icon if the image fails to load
@@ -116,12 +116,12 @@ fun CookItem(
 
         Spacer(modifier = Modifier.height(3.dp)) // Add vertical space
 
-        // Display the movie title
+        // Display the recipe title
         Text(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(2.dp), // Apply horizontal padding
-            text = cook.recipeName!!, // Set the text to the movie title
+            text = cook.recipeName!!, // Set the text to the recipe title
             color = Color.Black, // Set the text color to white
             fontSize = 12.sp, // Set the font size
             maxLines = 1, // Limit the text to one line
@@ -132,7 +132,7 @@ fun CookItem(
 
         Spacer(modifier = Modifier.height(6.dp))
 
-        // Display the movie rating
+        // Display the recipe details
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,// Fill the width of the parent
@@ -160,15 +160,14 @@ fun CookItem(
                     modifier = Modifier.size(20.dp), // Set the size of the icon
                     imageVector = Icons.Rounded.Timelapse, // Use a "not supported" image icon
                     contentDescription = "time",
-                    tint = Color.Cyan,
+                    tint = Color.Green,
                 )
                 Text(
-                    text = cook.totalTime.toString(),
+                    text = cook.totalTime?.replace(" dakika", " dk") ?: "",
                     fontSize = 12.sp,
                     lineHeight = TextUnit.Unspecified,
                     letterSpacing = TextUnit.Unspecified
                 )
-
             }
 
             Row(modifier = Modifier.weight(1f)) {
@@ -179,8 +178,6 @@ fun CookItem(
                 )
                 Text(text = cook.difficultyLevel.toString(), fontSize = 12.sp)
             }
-
-
         }
     }
 }

@@ -90,6 +90,6 @@ interface CookApi {
 
     companion object {
 
-        const val BASE_URL = "https://hit-harvest-gmt-screw.trycloudflare.com"
+        const val BASE_URL = "https://momentum-concentrate-exceed-contacting.trycloudflare.com"
     }
 }
