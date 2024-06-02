@@ -11,10 +11,11 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -47,7 +48,6 @@ fun AddRecipeScreen() {
     var prepTime by remember { mutableStateOf("") }
     var cookTime by remember { mutableStateOf("") }
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
-    // Malzemeler ve miktarları tutan liste
     var ingredientsList by remember { mutableStateOf(listOf<Pair<String, String>>()) }
 
     val photoPickerLauncher =
@@ -63,50 +63,54 @@ fun AddRecipeScreen() {
 
             item {
                 Text(
-                    text = "Tarif Ekle", fontSize = 24.sp, modifier = Modifier
+                    text = "Tarif Ekle", fontSize = 24.sp, modifier = Modifier.padding(bottom = 16.dp)
                 )
 
                 // Seçilen görseli gösteren Box
-                selectedImageUri?.let { uri ->
-                    Box(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .size(350.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        if (selectedImageUri != null) {
-                            AsyncImage(
-                                model = selectedImageUri,
-                                contentDescription = null,
-                                modifier = Modifier.fillMaxSize(),
-                                contentScale = ContentScale.Crop
-                            )
-                        } else {
-                            // Placeholder görüntüsü
-                            Image(
-                                painter = painterResource(id = R.drawable.placeholder),
-                                contentDescription = "Placeholder Image",
-                                modifier = Modifier.fillMaxSize(),
-                                contentScale = ContentScale.Crop
-                            )
-                        }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (selectedImageUri != null) {
+                        AsyncImage(
+                            model = selectedImageUri,
+                            contentDescription = null,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
+                    } else {
+                        Image(
+                            painter = painterResource(id = R.drawable.placeholder),
+                            contentDescription = "Placeholder Image",
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
                     }
                 }
 
-                Button(onClick = {
-                    photoPickerLauncher.launch(
-                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                    )
-                }) {
-                    Text("Görsel Seçiniz")
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Button(
+                        onClick = {
+                            photoPickerLauncher.launch(
+                                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                            )
+                        }
+                    ) {
+                        Text("Görsel Seçiniz")
+                    }
                 }
 
-                // "Tarif" title
                 Text(
-                    text = "Tarif", fontSize = 24.sp
+                    text = "Tarif", fontSize = 24.sp, modifier = Modifier.padding(vertical = 16.dp)
                 )
 
-                // Recipe name input
                 OutlinedTextField(value = recipeName,
                     onValueChange = { recipeName = it },
                     label = { Text("Tarif İsmi") },
@@ -116,7 +120,6 @@ fun AddRecipeScreen() {
                 )
 
                 Row {
-                    // Kaç kişilik olacağını belirten input
                     OutlinedTextField(value = servingSize,
                         onValueChange = {
                             if (it.toIntOrNull() != null && it.toInt() > 0) servingSize = it
@@ -128,7 +131,6 @@ fun AddRecipeScreen() {
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                     )
 
-                    // Kategori seçimi
                     OutlinedTextField(
                         value = category, onValueChange = { category = it },
                         label = { Text("Kategori") },
@@ -139,7 +141,6 @@ fun AddRecipeScreen() {
                 }
 
                 Row {
-                    // Preparation time input
                     OutlinedTextField(value = prepTime,
                         onValueChange = { prepTime = it },
                         label = { Text("Hazırlık Süresi") },
@@ -149,7 +150,6 @@ fun AddRecipeScreen() {
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                     )
 
-                    // Cooking time input
                     OutlinedTextField(value = cookTime,
                         onValueChange = { cookTime = it },
                         label = { Text("Pişirme Süresi") },
@@ -160,12 +160,10 @@ fun AddRecipeScreen() {
                     )
                 }
 
-                // "Malzemeler" title
                 Text(
-                    text = "Malzemeler", fontSize = 24.sp
+                    text = "Malzemeler", fontSize = 24.sp, modifier = Modifier.padding(vertical = 16.dp)
                 )
 
-                // Malzeme ve miktar girdileri
                 ingredientsList.forEachIndexed { index, (ingredient, quantity) ->
                     var ingredientState by remember { mutableStateOf(ingredient) }
                     var quantityState by remember { mutableStateOf(quantity) }
@@ -174,7 +172,6 @@ fun AddRecipeScreen() {
                         OutlinedTextField(value = ingredientState,
                             onValueChange = { newValue ->
                                 ingredientState = newValue
-                                // Malzeme değerini güncelle
                                 ingredientsList = ingredientsList.toMutableList().also {
                                     it[index] = ingredientState to it[index].second
                                 }
@@ -188,7 +185,6 @@ fun AddRecipeScreen() {
                         OutlinedTextField(value = quantityState,
                             onValueChange = { newValue ->
                                 quantityState = newValue
-                                // Miktar değerini güncelle
                                 ingredientsList = ingredientsList.toMutableList().also {
                                     it[index] = it[index].first to quantityState
                                 }
@@ -202,18 +198,14 @@ fun AddRecipeScreen() {
                     }
                 }
 
-                // Yeni malzeme ve miktar girdisi eklemek için buton
                 Button(onClick = {
-                    // Yeni bir malzeme ve miktar girdisi ekler
                     ingredientsList = ingredientsList + ("" to "")
                 }) {
                     Text("Malzeme Ekle")
                 }
 
-                // "Nasıl Yapılır" title
-                Text(text = "Nasıl Yapılır", fontSize = 24.sp)
+                Text(text = "Nasıl Yapılır", fontSize = 24.sp, modifier = Modifier.padding(vertical = 16.dp))
 
-                // How to make it input
                 OutlinedTextField(value = howTo,
                     onValueChange = { howTo = it },
                     label = { Text("Nasıl Yapılır") },
@@ -222,9 +214,19 @@ fun AddRecipeScreen() {
                         .padding(4.dp)
                 )
 
-                // Submit button
-                Button(onClick = { /* TODO: Implement submission */ }) {
-                    Text("Tarif Ekle")
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Button(
+                        onClick = { /* TODO: Implement submission */ }
+                    ) {
+                        Text("Tarif Ekle")
+                    }
                 }
             }
         }
