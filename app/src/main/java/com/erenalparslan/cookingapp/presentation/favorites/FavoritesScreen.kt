@@ -23,21 +23,28 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
+import com.erenalparslan.cookingapp.presentation.cook.CookViewModel
 
 
 @Composable
 fun FavoritesScreen() {
+    val viewModel = hiltViewModel<FavoritesViewModel>()
+    val state by rememberUpdatedState(newValue = viewModel.cookState.collectAsState().value)
     var selectedTab by remember { mutableStateOf(0) }
+
     val tabs = listOf("Kaydedilenler", "Beğenilenler")
 
     Surface(
@@ -53,9 +60,10 @@ fun FavoritesScreen() {
             }
 
             LazyColumn {
-                // Burada, yiyeceklerin listesini almanız ve her bir yiyecek için bir Card oluşturmanız gerekiyor.
-                // Bu örnekte, sadece bir Card oluşturuluyor.
-                item {
+
+                items(state.cookList.size) {
+                    val item = state.cookList[it]
+
                     Card(
                         modifier = Modifier.padding(8.dp), shape = RoundedCornerShape(8.dp)
                     ) {
@@ -101,7 +109,10 @@ fun FavoritesScreen() {
                                         Icon(
                                             Icons.Default.Timer, contentDescription = null
                                         ) // Hazırlanma süresi ikonu
-                                        Text("30 dk", fontSize = 12.sp) // Hazırlanma süresini kullanın
+                                        Text(
+                                            "30 dk",
+                                            fontSize = 12.sp
+                                        ) // Hazırlanma süresini kullanın
                                     }
 
                                     Spacer(Modifier.width(6.dp))
@@ -110,7 +121,10 @@ fun FavoritesScreen() {
                                         Icon(
                                             Icons.Default.Book, contentDescription = null
                                         ) // Zorluk seviyesi ikonu
-                                        Text("Kolay", fontSize = 12.sp) // Zorluk seviyesini kullanın
+                                        Text(
+                                            "Kolay",
+                                            fontSize = 12.sp
+                                        ) // Zorluk seviyesini kullanın
                                     }
                                 }
                             }

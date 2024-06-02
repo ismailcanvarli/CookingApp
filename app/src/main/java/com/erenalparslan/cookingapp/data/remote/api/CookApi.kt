@@ -3,6 +3,7 @@ package com.erenalparslan.cookingapp.data.remote.api
 import com.erenalparslan.cookingapp.data.remote.response.CookDto
 import com.erenalparslan.cookingapp.data.remote.response.CookDtoItem
 import com.erenalparslan.cookingapp.data.remote.response.GeminiResponse
+import com.erenalparslan.cookingapp.data.remote.response.GetProfileResponse
 import com.erenalparslan.cookingapp.data.remote.response.Instruction
 import com.erenalparslan.cookingapp.data.remote.response.LoginDto
 import com.erenalparslan.cookingapp.data.remote.response.LoginResponse
@@ -11,6 +12,8 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -54,8 +57,8 @@ interface CookApi {
     @GET("/v1/recipes/recipes-of-the-day")
     suspend fun getRecipeOfTheDay(): CookDto
 
-    @GET("/v1/recipes//liked")
-    suspend fun getLikedRecipes(): CookDto
+    @GET("/v1/recipes/liked")
+    suspend fun getLikedRecipes(@Header("Authorization") token: String): List<CookDtoItem>
 
     @GET(("/v1/recipes/instructionDetail"))
     suspend fun getInstructionDetail(): CookDto
@@ -74,7 +77,7 @@ interface CookApi {
     suspend fun googleLogin(): CookDto
 
     @GET("/v1/members")
-    suspend fun getProfile(): CookDto
+    suspend fun getProfile(@Header("Authorization") token: String): GetProfileResponse
 
     @GET("/v1/members/{memberId}")
     suspend fun getProfileById(@Path("memberId") memberId: Int): CookDto
@@ -91,6 +94,6 @@ interface CookApi {
 
     companion object {
 
-        const val BASE_URL = "https://tracker-wholesale-divorce-holes.trycloudflare.com"
+        const val BASE_URL = "https://hit-harvest-gmt-screw.trycloudflare.com"
     }
 }

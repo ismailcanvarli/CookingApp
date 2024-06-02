@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -43,6 +44,7 @@ import com.erenalparslan.cookingapp.presentation.home.HomeScreen
 import com.erenalparslan.cookingapp.presentation.making.RecipeMakingScreen
 import com.erenalparslan.cookingapp.presentation.profile.LoginScreen
 import com.erenalparslan.cookingapp.presentation.profile.RegisterScreen
+import com.erenalparslan.cookingapp.presentation.profile.viewmodel.ProfileViewModel
 import com.erenalparslan.cookingapp.presentation.recipeDetail.RecipeDetailScreen
 import com.erenalparslan.cookingapp.ui.theme.CookingAppTheme
 import com.erenalparslan.cookingapp.util.Screen
@@ -59,6 +61,8 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
+                    val viewModel=hiltViewModel<MainActivityViewModel>()
+
                     val navController = rememberNavController()
                     Scaffold(bottomBar = { BottomNavigationBar(bottomNavController = navController) }) {
 

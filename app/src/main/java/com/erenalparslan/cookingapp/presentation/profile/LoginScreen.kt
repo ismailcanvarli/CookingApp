@@ -1,5 +1,7 @@
 package com.erenalparslan.cookingapp.presentation.profile
 
+import android.os.Handler
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,7 +39,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.erenalparslan.cookingapp.data.remote.response.LoginDto
 import com.erenalparslan.cookingapp.presentation.profile.viewmodel.ProfileViewModel
-import com.erenalparslan.cookingapp.presentation.recipeDetail.RecipeDetailViewModel
 import com.erenalparslan.cookingapp.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,6 +49,7 @@ fun LoginScreen(navHostController: NavHostController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
+    var isSuccess by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -56,9 +59,12 @@ fun LoginScreen(navHostController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Giriş Yap", fontSize = 24.sp, textAlign = TextAlign.Center)
-        
-        if (state.isSuccess){
-            Text(text = "fdfgsd")
+
+        if (state.isLoading) {
+            CircularProgressIndicator()
+            Handler().postDelayed({
+                navHostController.navigate(Screen.Profile.route)
+            }, 3000)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -92,7 +98,10 @@ fun LoginScreen(navHostController: NavHostController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { viewModel.login(LoginDto(email = email, password = password)) },
+            onClick = {
+                viewModel.login(LoginDto(email = email, password = password))
+                Log.d("TAG", "LoginScreen: $state ")
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Giriş Yap")
