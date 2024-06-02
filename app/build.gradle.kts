@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.erenalparslan.cookingapp"
+    namespace = "com.example.cookingapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.erenalparslan.cookingapp"
+        applicationId = "com.example.cookingapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
