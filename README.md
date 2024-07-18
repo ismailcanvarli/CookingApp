@@ -4,13 +4,19 @@
 The Cooking App is a platform aimed at transforming online recipes into an easy-to-use format with the help of artificial intelligence, guiding users step-by-step through the cooking process. Designed for the Android platform, the app provides a delightful cooking experience with detailed instructions and a timer. Users can share, like, and save recipes. The platform caters to cooks of all levels, making it easy to create professional-quality dishes at home.
 
 <div align="center">
-  <img src="https://github.com/ismailcanvarli/AutoDealerApp/assets/92732380/1cea69a7-d9b3-46ff-8a8c-a8b981b40d5c" width="300" height="500" />
-  <img src="https://github.com/ismailcanvarli/AutoDealerApp/assets/92732380/329b8218-b8de-4a7d-aa87-286e240c32ac" width="300" height="500" />
+  <img src="https://github.com/user-attachments/assets/8df7af03-e195-45dd-97f1-ad586b16753b" width="240" height="400" />
+  <img src="https://github.com/user-attachments/assets/39bc9d19-398b-40a7-a7ba-9a01c4d62612" width="240" height="400" />
 </div>
 
 <div align="center">
-  <img src="https://github.com/ismailcanvarli/AutoDealerApp/assets/92732380/0958ff5a-cf27-4c8e-a995-529ed523ccbb" width="300" height="500" />
-  <img src="https://github.com/ismailcanvarli/AutoDealerApp/assets/92732380/33fd7e98-d04a-47ca-bfa0-39ea97c41180" width="300" height="500" />
+  <img src="https://github.com/user-attachments/assets/bc39d633-8937-41c4-b787-328fd00d9a03" width="240" height="400" />
+  <img src="https://github.com/user-attachments/assets/94fc0e8c-e5cb-4da2-b04e-fa10b3173253" width="240" height="400" />
+</div>
+
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/a4110805-58d3-4209-bf3c-9dca6a58654a" width="240" height="600" />
+  <img src="https://github.com/user-attachments/assets/4356e7b8-aaad-4c3a-947d-caa428ff2d3f" width="240" height="600" />
 </div>
 
 ## Technologies Used
