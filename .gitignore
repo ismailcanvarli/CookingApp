@@ -1,15 +1,66 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+### Git ###
+*.orig
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+
+### Java & Kotlin ###
+*.class
+*.log
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+### Android ###
+# Built application files
+*.apk
+*.ap_
+*.aab
+
+# Generated files
+bin/
+gen/
+out/
+build/
+captures/
+.navigation/
+room-schemas/
+
+# Local configuration
 local.properties
+
+# Keystore files
+*.jks
+*.keystore
+
+# Jetpack Compose
+.compose/
+
+# Gradle files
+.gradle/
+.gradle
+
+# NDK
+obj/
+
+### IntelliJ IDEA ###
+.idea/
+*.iml
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/caches/
+.idea/libraries/
+
+### Firebase ###
+google-services.json
+
+### Temporary files ###
+*.tmp
+*.swp
