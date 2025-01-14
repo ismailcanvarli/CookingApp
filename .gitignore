@@ -57,6 +57,7 @@ obj/
 .idea/**/tasks.xml
 .idea/caches/
 .idea/libraries/
+.idea/misc.xml
 
 ### Firebase ###
 google-services.json
