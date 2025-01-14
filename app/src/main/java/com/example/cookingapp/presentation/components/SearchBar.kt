@@ -17,7 +17,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -50,9 +49,10 @@ fun SearchBar(
     }
 
     Box(modifier = modifier) {
-        TextField(modifier = Modifier
-            .fillMaxWidth()
-            .searchBar(),
+        TextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .searchBar(),
             value = text,
             onValueChange = onValueChange,
             readOnly = readOnly,
@@ -70,20 +70,13 @@ fun SearchBar(
                     modifier = Modifier.alpha(0.7f)
                 )
             },
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.White,
-                disabledIndicatorColor = Color.Transparent,
-                errorIndicatorColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                textColor = Color.Black
-            ),
             shape = MaterialTheme.shapes.medium,
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(onSearch = {}),
             textStyle = MaterialTheme.typography.bodySmall,
-            interactionSource = interactionSource)
+            interactionSource = interactionSource
+        )
     }
 }
 
