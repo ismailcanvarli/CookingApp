@@ -1,6 +1,7 @@
 # Cooking App
 
 ## Project Description
+
 The Cooking App is a platform aimed at transforming online recipes into an easy-to-use format with the help of artificial intelligence, guiding users step-by-step through the cooking process. Designed for the Android platform, the app provides a delightful cooking experience with detailed instructions and a timer. Users can share, like, and save recipes. The platform caters to cooks of all levels, making it easy to create professional-quality dishes at home.
 
 <div align="center">
@@ -16,16 +17,21 @@ The Cooking App is a platform aimed at transforming online recipes into an easy-
 </div>
 
 ## Technologies Used
-- Kotlin
-- Jetpack Compose
-- MVVM Architecture
-- Artificial Intelligence
-- Coil
-- Retrofit
-- Room Database
-- Dagger Hilt
+
+- **Kotlin**: A modern, concise, and safe programming language for Android app development.
+- **Navigation**: Simplifies navigation and deep linking between composables or fragments, ensuring a seamless user experience.
+- **Retrofit**: A type-safe HTTP client for API communication, enhanced with Gson Converter and OkHttp for effective data parsing and network handling.
+- **Artificial Intelligence**: Incorporates intelligent systems for personalized and automated user interactions (if applicable to the project).
+- **MVVM Architecture**: Ensures a clean separation of concerns by dividing the application into Model, View, and ViewModel layers.
+- **LiveData**: Observes and reacts to changes in data, ensuring the UI is always up to date with minimal boilerplate.
+- **Coil**: An efficient and lightweight image-loading library designed for Kotlin and Jetpack Compose.
+- **Room Database**: Provides a robust and efficient way to store and manage local data with SQLite, ensuring fast and secure access.
+- **Jetpack Compose**: A modern toolkit for building UIs declaratively, reducing the need for XML layouts and simplifying UI development.
+- **Dagger Hilt**: A dependency injection library that simplifies managing dependencies across the application, improving scalability and testability.
+
 
 ## Usage
+
 1. Open the application.
 2. Choose the type of recipe you want to make from the main screen.
 3. Enter the name of the recipe you want to cook in the search bar and search.
